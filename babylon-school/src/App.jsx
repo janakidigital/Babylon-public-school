@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { createClient } from "@supabase/supabase-js";
 import heroVideo from "./assets/hero-video.mp4";
+import API_BASE_URL from "./config";
 
 // ─── SUPABASE ─────────────────────────────────────────────────────────────────
 const SUPABASE_URL = "https://zctwuadyvwyxqgallqxn.supabase.co";
@@ -1297,7 +1298,7 @@ const [submitError, setSubmitError] = useState("");
     setSubmitting(true);
     setSubmitError("");
     try {
-      const res = await fetch("http://localhost:4000/api/admission", {
+      const res = await fetch(`${API_BASE_URL}/api/admission`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -1457,7 +1458,7 @@ function Footer({ onApply }) {
                   style={{ width: "100%", padding: "9px 12px", borderRadius: 7, border: "1.5px solid rgba(255,255,255,.12)", background: "rgba(255,255,255,.06)", color: "white", fontSize: 13, marginBottom: 8, outline: "none", resize: "none", fontFamily: "inherit", boxSizing: "border-box" }} />
                 <button onClick={async () => {
     try {
-      const res = await fetch("http://localhost:4000/api/contact", {
+      const res = await fetch(`${API_BASE_URL}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, message: msg }),

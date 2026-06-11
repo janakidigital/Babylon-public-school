@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Basic Level Education – Babylon National School</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--red:#D52027;--teal:#12A5BF;--teal-light:#1cbdd9;--navy:#1a2744;--dark:#323239;--mid:#434343;--white:#ffffff;--off:#f8f9fb;--border:#e8ecf0;--gold:#c9972c}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--dark);background:var(--white);overflow-x:hidden}
+img{max-width:100%;display:block}a{text-decoration:none;color:inherit}
+.topbar{background:var(--navy);padding:9px 48px;display:flex;justify-content:space-between;align-items:center}
+.topbar ul{list-style:none;display:flex;gap:24px;flex-wrap:wrap}
+.topbar ul li a{display:flex;align-items:center;gap:7px;color:rgba(255,255,255,.75);font-size:12.5px;transition:color .2s}
+.topbar ul li a:hover{color:var(--teal-light)}
+.topbar-right{display:flex;gap:12px;align-items:center}
+.btn-eportal{display:flex;align-items:center;gap:7px;background:var(--teal);color:white!important;padding:5px 16px;border-radius:6px;font-size:12.5px;font-weight:600;transition:background .2s}
+.btn-eportal:hover{background:var(--teal-light)!important}
+.btn-login{display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.75)!important;font-size:12.5px;cursor:pointer;background:none;border:none;font-family:inherit}
+.login-wrap{position:relative}
+.login-dropdown{display:none;position:absolute;right:0;top:calc(100% + 10px);background:white;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.15);padding:8px 0;z-index:300;min-width:170px}
+.login-dropdown a{display:flex;align-items:center;gap:10px;padding:11px 18px;font-size:13px;color:var(--mid);transition:all .2s}
+.login-dropdown a:hover{background:rgba(18,165,191,.07);color:var(--teal)}
+.login-wrap:hover .login-dropdown,.login-wrap.open .login-dropdown{display:block}
+nav{background:var(--white);height:74px;padding:0 48px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,.07)}
+.logo img{height:56px;width:auto;object-fit:contain}
+.nav-links{display:flex;gap:2px;align-items:center}
+.nav-links>a,.nav-links>.has-drop>a{color:var(--mid);font-size:13.5px;font-weight:500;padding:8px 14px;border-radius:7px;transition:all .2s;display:block}
+.nav-links>a:hover,.nav-links>a.active{color:var(--teal);background:rgba(18,165,191,.07)}
+.nav-links .has-drop{position:relative}
+.nav-links .has-drop>a:hover,.nav-links .has-drop:hover>a{color:var(--teal);background:rgba(18,165,191,.07)}
+.nav-links .has-drop:hover .dropdown{display:block}
+.dropdown{display:none;position:absolute;top:100%;left:0;background:white;min-width:210px;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.12);padding:8px 0;z-index:200}
+.dropdown a{display:flex;align-items:center;gap:8px;padding:9px 18px;font-size:13px;color:var(--mid);transition:all .2s}
+.dropdown a:hover{background:rgba(18,165,191,.08);color:var(--teal);padding-left:24px}
+.nav-apply{background:var(--red);color:white;padding:10px 22px;border-radius:8px;font-size:13.5px;font-weight:600;transition:all .2s;margin-left:8px;cursor:pointer;border:none;font-family:inherit}
+.nav-apply:hover{background:#b81c22}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px}
+.hamburger span{display:block;width:24px;height:2px;background:var(--mid);border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.page-hero{background:linear-gradient(135deg,var(--navy) 0%,#2a3f6e 100%);padding:80px 48px 60px;position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,rgba(18,165,191,.15) 0%,transparent 60%)}
+.page-hero-inner{max-width:1200px;margin:0 auto;position:relative;z-index:2}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(255,255,255,.5);margin-bottom:16px}
+.breadcrumb a{color:rgba(255,255,255,.6);transition:color .2s}
+.breadcrumb a:hover{color:var(--teal-light)}
+.breadcrumb span{color:rgba(255,255,255,.3)}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:48px;color:white;font-weight:700;line-height:1.15;margin-bottom:14px}
+.page-hero h1 em{color:var(--gold);font-style:italic}
+.page-hero p{font-size:16px;color:rgba(255,255,255,.7);line-height:1.7;max-width:600px}
+.container{max-width:1200px;margin:0 auto;padding:0 48px}
+.sec-label{font-size:11.5px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.sec-label::before{content:'';width:20px;height:2px;background:var(--teal);display:block}
+.sec-title{font-family:'Playfair Display',serif;font-size:38px;font-weight:700;color:var(--mid);line-height:1.2;margin-bottom:14px}
+.sec-sub{font-size:15px;color:#666;line-height:1.75;max-width:540px}
+footer{background:var(--navy);padding:64px 0 0}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.3fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.08)}
+.footer-brand p{font-size:13.5px;color:rgba(255,255,255,.5);line-height:1.8;margin-top:12px}
+.footer-brand img{height:44px;filter:brightness(0) invert(1) opacity(.9);margin-bottom:4px}
+.footer-col h5{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.35);font-weight:600;margin-bottom:20px}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:11px}
+.footer-col ul li a{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.6);font-size:13.5px;transition:all .2s}
+.footer-col ul li a:hover{color:var(--teal-light);padding-left:4px}
+.footer-contact-item{display:flex;align-items:flex-start;gap:10px;color:rgba(255,255,255,.6);font-size:13px;margin-bottom:12px;line-height:1.6}
+.footer-socials{display:flex;gap:10px;margin-top:16px}
+.social-btn{width:38px;height:38px;border-radius:9px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.6);transition:all .2s;text-decoration:none}
+.social-btn:hover{background:var(--teal);border-color:var(--teal);color:white}
+.footer-bottom{padding:20px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.footer-bottom span{font-size:12px;color:rgba(255,255,255,.3)}
+.apply-float{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:50}
+.apply-float a{display:flex;flex-direction:column;align-items:center;justify-content:center;width:70px;height:70px;border-radius:50%;background:var(--red);color:white;font-size:11px;font-weight:700;text-align:center;line-height:1.3;box-shadow:0 8px 24px rgba(213,32,39,.45);transition:transform .2s;animation:pulse 2.5s infinite}
+.apply-float a:hover{transform:scale(1.1) rotate(5deg)}
+@keyframes pulse{0%,100%{box-shadow:0 8px 24px rgba(213,32,39,.45)}50%{box-shadow:0 8px 32px rgba(213,32,39,.7),0 0 0 8px rgba(213,32,39,.1)}}
+@media(max-width:768px){
+  nav{padding:0 16px}.hamburger{display:flex}
+  .nav-links{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:white;flex-direction:column;align-items:flex-start;padding:80px 24px 32px;overflow-y:auto;z-index:200;gap:0}
+  .nav-links.mobile-open{display:flex}
+  .nav-links>a,.nav-links>.has-drop>a{font-size:15px;padding:14px 0;border-bottom:1px solid var(--border);width:100%}
+  .has-drop{width:100%}.dropdown{display:block;position:static;box-shadow:none;border-left:2px solid var(--teal);padding:0 0 0 16px;border-radius:0}
+  .nav-apply{margin:16px 0 0;width:100%;text-align:center;padding:12px;border-radius:8px}
+  .page-hero{padding:60px 20px 40px}.page-hero h1{font-size:32px}
+  .container{padding:0 16px}.footer-grid{grid-template-columns:1fr;gap:32px}
+  .topbar{padding:8px 16px}.topbar ul{gap:10px}
+}
+</style>
+
+</head>
+<body>
+
+<div class="apply-float">
+  <a href="#" onclick="openAdmission();return false;">Apply<br>Now!</a>
+</div>
+<div class="topbar">
+  <ul>
+    <li><a href="mailto:info@babylonschool.edu.np">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+      info@babylonschool.edu.np
+    </a></li>
+    <li><a href="tel:+97714108905">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.19h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6.29 6.29l1.17-1.17a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      +977-1-4108905, 4108973
+    </a></li>
+    <li><a href="https://www.google.com/maps/search/?api=1&query=Babylon+National+School+Kathmandu" target="_blank">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      BalaBhadra Marga, Kathmandu
+    </a></li>
+  </ul>
+  <div class="topbar-right">
+    <a href="https://edigitalnepal.com/e/babylon" class="btn-eportal" target="_blank">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      E-Portal
+    </a>
+    <div class="login-wrap">
+      <button class="btn-login" onclick="this.closest('.login-wrap').classList.toggle('open')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Login ▾
+      </button>
+      <div class="login-dropdown">
+        <a href="https://edigitalnepal.com/e/babylon" target="_blank">Student Portal</a>
+        <a href="https://babylonschool.edu.np/parents-portal" target="_blank">Parents Portal</a>
+        <a href="https://edigitalnepal.com/e/babylon" target="_blank">Staff Login</a>
+      </div>
+    </div>
+  </div>
+</div>
+<nav>
+  <a href="index.html" class="logo">
+    <img src="https://wms.edigitalnepal.com/wms/files/ws-profile/1673510420231_2830d6ec-d646-4eb1-8df2-75fbaff60958.png" alt="Babylon National School">
+  </a>
+  <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html" >Home</a>
+    <div class="has-drop">
+      <a href="about.html" >About ▾</a>
+      <div class="dropdown">
+        <a href="about.html#about-us">About Us</a>
+        <a href="about.html#mission-vision">Mission &amp; Vision</a>
+        <a href="about.html#philosophy">Our Philosophy</a>
+        <a href="about.html#governing-body">Governing Body</a>
+        <a href="about.html#our-team">Our Team</a>
+      </div>
+    </div>
+    <div class="has-drop">
+      <a href="#" >Gallery ▾</a>
+      <div class="dropdown">
+        <a href="https://babylonschool.edu.np/gallery/hanging-garden-vol_1" target="_blank">Hanging Garden Vol_1</a>
+        <a href="https://babylonschool.edu.np/gallery/hanging-garden-vol_2" target="_blank">Hanging Garden Vol_2</a>
+        <a href="https://babylonschool.edu.np/gallery/image-gallery" target="_blank">Image Gallery</a>
+        <a href="https://babylonschool.edu.np/gallery/video-gallery" target="_blank">Video Gallery</a>
+      </div>
+    </div>
+    <div class="has-drop">
+      <a href="#">Information ▾</a>
+      <div class="dropdown">
+        <a href="https://babylonschool.edu.np/information-center/notice" target="_blank">Notice</a>
+        <a href="https://babylonschool.edu.np/information-center/facilities" target="_blank">Facilities</a>
+        <a href="https://babylonschool.edu.np/information-center/blog" target="_blank">Blog</a>
+      </div>
+    </div>
+    <div class="has-drop">
+      <a href="#">Babylon Buds ▾</a>
+      <div class="dropdown">
+        <a href="https://drive.google.com/file/d/1NRIw600skwL-PAx1p4aMQzliHgRX8PcZ/view" target="_blank">Issue_28</a>
+        <a href="https://drive.google.com/file/d/11qLkNA0YNwS6HK5zJo3DGw5FPHPH_BWF/view" target="_blank">Issue_27</a>
+        <a href="https://drive.google.com/file/d/16nQgVR4YZMXmn9O7Li0UtnJjJMv2AoAX/view" target="_blank">Issue_26</a>
+      </div>
+    </div>
+    <a href="https://babylonschool.edu.np/parents-portal" target="_blank">Parents Portal</a>
+    <a href="https://babylonschool.edu.np/news" target="_blank">News</a>
+    <div class="has-drop">
+      <a href="#">Syllabus ▾</a>
+      <div class="dropdown">
+        <a href="https://drive.google.com/file/d/1kKYDeytxc6trMHzUEimhV2McXsE3va2D/view" target="_blank">Grade I – 2083</a>
+        <a href="https://drive.google.com/file/d/1HtrcbTATRxkZ5eZDKL-bdZ_uID_ca5dB/view" target="_blank">Grade II – 2083</a>
+        <a href="https://drive.google.com/file/d/1MTtSRBYu1a3fnXc9uKVXOq-POYiOLTPQ/view" target="_blank">Grade III – 2083</a>
+        <a href="https://drive.google.com/file/d/1QKh3VvQxYhtOMZAIzTz6IvdofVKeBtIr/view" target="_blank">Grade V – 2083</a>
+        <a href="https://drive.google.com/file/d/1NY62_CdkQOCQtQM9QGRtJSNwYHAOb0mZ/view" target="_blank">Grade X – 2083</a>
+        <a href="https://drive.google.com/file/d/1xWlzH_yNDxA0OODFwRzdEObwGQj3jbQt/view" target="_blank">Academic Calendar</a>
+      </div>
+    </div>
+    <a href="programs.html" class='active'>Programs</a>
+    <a href="#">Career</a>
+    <a href="#">Contact</a>
+  </div>
+  <button class="nav-apply" onclick="openAdmission()">Apply Now</button>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>›</span>
+      <span>Programs / Basic Level</span>
+    </div>
+    <h1>Basic Level <em>Education</em></h1>
+    <p>Building strong foundations through the Playway Method and Learning by Doing approach for students in Grade 4 to Grade 8.</p>
+  </div>
+</section>
+
+<section style="padding:80px 0;background:var(--white)">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start">
+      <div style="border-radius:18px;overflow:hidden;box-shadow:0 16px 48px rgba(18,165,191,.15);height:400px">
+        <img src="https://wms.edigitalnepal.com/wms/files/ws-post-images/1735714642624_4b116aef-43b9-4eda-bafc-bf8e6a3114c5.jpg" alt="Basic Level Education" style="width:100%;height:100%;object-fit:cover">
+      </div>
+      <div>
+        <div class="sec-label">Grade 4 – Grade 8</div>
+        <h2 class="sec-title">Basic Level Education</h2>
+        <p style="font-size:15px;color:#555;line-height:1.85;margin-bottom:18px">Our Basic Level program incorporates the Playway Method and Learning by Doing approach — promoting cognitive and social development through interactive, hands-on activities.</p>
+        <p style="font-size:15px;color:#555;line-height:1.85;margin-bottom:28px">Students in Grade 4–8 are encouraged to think independently, collaborate with peers, and explore subjects through project-based, real-world tasks that build academic confidence and character.</p>
+        <a href="https://edigitalnepal.com/ca/apply/babylon" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--red);color:white;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:600">Apply Now →</a>
+      </div>
+    </div>
+  </div>
+</section>
+<section style="padding:72px 0;background:var(--off)">
+  <div class="container">
+    <div class="sec-label">Teaching Methodology</div>
+    <h2 class="sec-title">How We Teach</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px">
+      <div style="background:white;border-radius:16px;padding:36px;box-shadow:0 4px 20px rgba(0,0,0,.06)">
+        <h3 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--mid);margin-bottom:14px;font-weight:700">Playway Method</h3>
+        <p style="font-size:14px;color:#666;line-height:1.85">The Playway Method integrates purposeful play into structured learning, helping students in the Basic Level develop their cognitive, motor, and social skills simultaneously. Through games, creative activities, and guided exploration, children gain academic knowledge in a joyful, pressure-free environment that builds their confidence and intrinsic motivation to learn.</p>
+      </div>
+      <div style="background:white;border-radius:16px;padding:36px;box-shadow:0 4px 20px rgba(0,0,0,.06)">
+        <h3 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--mid);margin-bottom:14px;font-weight:700">Learning by Doing</h3>
+        <p style="font-size:14px;color:#666;line-height:1.85">Our "Learning by Doing" philosophy encourages students to gain knowledge and skills through direct experience and reflection. Rather than passive instruction, students conduct experiments, build models, collaborate on projects, and engage in field-based learning. This experiential approach develops problem-solving ability, teamwork, and real-world readiness that lasts a lifetime.</p>
+      </div>
+      <div style="background:white;border-radius:16px;padding:36px;box-shadow:0 4px 20px rgba(0,0,0,.06)">
+        <h3 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--mid);margin-bottom:14px;font-weight:700">STEAM Integration</h3>
+        <p style="font-size:14px;color:#666;line-height:1.85">Science, Technology, Engineering, Arts, and Mathematics are woven throughout the curriculum, giving students a well-rounded, interdisciplinary education. Our annual STEAM Exhibition showcases student creativity, curiosity, and innovation — students present self-directed projects that address real-world challenges and demonstrate their analytical and creative abilities.</p>
+      </div>
+      <div style="background:white;border-radius:16px;padding:36px;box-shadow:0 4px 20px rgba(0,0,0,.06)">
+        <h3 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--mid);margin-bottom:14px;font-weight:700">ECA & Co-curricular</h3>
+        <p style="font-size:14px;color:#666;line-height:1.85">Extra-Curricular Activities (ECA) are central to the Basic Level experience. Students participate in sports, arts, music, dance, debate, and community service. These activities develop social skills, resilience, and a well-rounded character. Our ECA programs are structured to complement academic learning and ensure every student discovers their talents and passions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section style="padding:72px 0;background:white">
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px">
+    <div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:32px;color:var(--mid);font-weight:700">Explore Other Programs</h2>
+    </div>
+    <div style="display:flex;gap:14px;flex-wrap:wrap">
+      <a href="early-childhood.html" style="border:1.5px solid var(--teal);color:var(--teal);padding:11px 22px;border-radius:8px;font-size:14px;font-weight:600;transition:all .2s" onmouseover="this.style.background='var(--teal)';this.style.color='white'" onmouseout="this.style.background='';this.style.color='var(--teal)'">← Early Childhood</a>
+      <a href="secondary-level.html" style="border:1.5px solid var(--navy);color:var(--navy);padding:11px 22px;border-radius:8px;font-size:14px;font-weight:600;transition:all .2s" onmouseover="this.style.background='var(--navy)';this.style.color='white'" onmouseout="this.style.background='';this.style.color='var(--navy)'">Secondary Level →</a>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="https://wms.edigitalnepal.com/wms/files/ws-profile/1673510420231_2830d6ec-d646-4eb1-8df2-75fbaff60958.png" alt="Babylon National School">
+        <p>Babylon National School is a co-ed English medium school from PG to secondary level, dedicated to excellence since 1996.</p>
+        <div class="footer-socials">
+          <a href="https://www.facebook.com/BabylonNationalSchool/" target="_blank" class="social-btn" title="Facebook">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@babylonnationalschool1915" target="_blank" class="social-btn" title="YouTube">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/babylonschoolofficial/" target="_blank" class="social-btn" title="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="early-childhood.html">Early Childhood</a></li>
+          <li><a href="basic-level.html">Basic Level</a></li>
+          <li><a href="secondary-level.html">Secondary Level</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Resources</h5>
+        <ul>
+          <li><a href="https://babylonschool.edu.np/information-center/notice" target="_blank">Notice Board</a></li>
+          <li><a href="https://babylonschool.edu.np/news" target="_blank">News &amp; Events</a></li>
+          <li><a href="https://edigitalnepal.com/e/babylon" target="_blank">E-Portal</a></li>
+          <li><a href="https://babylonschool.edu.np/parents-portal" target="_blank">Parents Portal</a></li>
+          <li><a href="https://drive.google.com/file/d/1xWlzH_yNDxA0OODFwRzdEObwGQj3jbQt/view" target="_blank">Academic Calendar</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact Us</h5>
+        <div class="footer-contact-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:2px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Shantinagar-31, Baneshwor, Kathmandu
+        </div>
+        <div class="footer-contact-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:2px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12"/></svg>
+          +977-1-4108905, 4108973
+        </div>
+        <div class="footer-contact-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:2px"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+          info@babylonschool.edu.np
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Babylon National School. All Rights Reserved.</span>
+      <span>Shantinagar, Kathmandu, Nepal</span>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ADMISSION MODAL placeholder - links to main apply form -->
+<script>
+function openAdmission(){
+  window.open('https://edigitalnepal.com/ca/apply/babylon','_blank');
+}
+</script>
+
+
+<script>
+function toggleMobileMenu(){
+  const nav=document.getElementById('navLinks');
+  const btn=document.getElementById('hamburger');
+  nav.classList.toggle('mobile-open');
+  btn.classList.toggle('open');
+  document.body.style.overflow=nav.classList.contains('mobile-open')?'hidden':'';
+}
+window.addEventListener('resize',()=>{
+  if(window.innerWidth>768){
+    document.getElementById('navLinks').classList.remove('mobile-open');
+    document.getElementById('hamburger').classList.remove('open');
+    document.body.style.overflow='';
+  }
+});
+</script>
+
+</body>
+</html>

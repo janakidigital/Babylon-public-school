@@ -1,0 +1,13 @@
+﻿# Dependencies
+**/node_modules/
+
+# Environment
+.env
+**/.env
+
+# Build output
+dist/
+**/dist/
+
+# Data files
+babylon-backend/data/

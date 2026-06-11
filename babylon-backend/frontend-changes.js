@@ -17,7 +17,7 @@ async function handleSubmit() {
   setSubmitting(true);
   setSubmitError("");
   try {
-    const res = await fetch("http://localhost:4000/api/admission", {
+    const res = await fetch(`${API_BASE_URL}/api/admissions`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
@@ -60,7 +60,7 @@ async function handleContact() {
   if (!name.trim() || !email.trim() || !msg.trim()) return;
   setSending(true);
   try {
-    const res = await fetch("http://localhost:4000/api/contact", {
+    const res = await fetch(`${API_BASE_URL}/api/contact`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, message: msg }),

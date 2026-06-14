@@ -1,0 +1,382 @@
+@startuml BabylonNationalSchool
+
+' ─── HOOKS ───────────────────────────────────────────
+class useBreakpoint {
+  +isMobile: Boolean
+  +isTablet: Boolean
+  +isDesktop: Boolean
+  +w: Number
+  +ready: Boolean
+}
+
+class useCRUD {
+  +rows: Array
+  +loading: Boolean
+  +load()
+  +save(form, isEdit)
+  +del(id)
+}
+
+' ─── FRONTEND COMPONENTS ─────────────────────────────
+class Navbar {
+  +mobileOpen: Boolean
+  +scrolled: Boolean
+  +onApply()
+  +render()
+}
+
+class NavItem {
+  +item: Object
+  +isMobile: Boolean
+  +open: Boolean
+  +render()
+}
+
+class HeroSlider {
+  +cur: Number
+  +slides: Array
+  +heroVideo: String
+  +onApply()
+  +render()
+}
+
+class About {
+  +render()
+}
+
+class Messages {
+  +msgs: Array
+  +render()
+}
+
+class Services {
+  +active: Number
+  +services: Array
+  +render()
+}
+
+class Blog {
+  +blogs: Array
+  +render()
+}
+
+class Events {
+  +events: Array
+  +render()
+}
+
+class EventCard {
+  +event: Object
+  +large: Boolean
+  +hov: Boolean
+  +render()
+}
+
+class Courses {
+  +courses: Array
+  +render()
+}
+
+class Testimonials {
+  +testimonials: Array
+  +render()
+}
+
+class Gallery {
+  +imgs: Array
+  +render()
+}
+
+class SyllabusPage {
+  +render()
+}
+
+class MapSection {
+  +render()
+}
+
+class Footer {
+  +name: String
+  +email: String
+  +msg: String
+  +sent: Boolean
+  +onApply()
+  +render()
+}
+
+class FloatingButtons {
+  +showTop: Boolean
+  +onApply()
+  +render()
+}
+
+class AdmissionModal {
+  +step: Number
+  +form: Object
+  +submitted: Boolean
+  +submitting: Boolean
+  +onClose()
+  +render()
+}
+
+class ModalShell {
+  +onClose()
+  +render()
+}
+
+' ─── SHARED UI COMPONENTS ────────────────────────────
+class SecLabel {
+  +center: Boolean
+  +render()
+}
+
+class SecTitle {
+  +center: Boolean
+  +render()
+}
+
+' ─── ADMIN COMPONENTS ────────────────────────────────
+class LoginPage {
+  +email: String
+  +password: String
+  +error: String
+  +loading: Boolean
+  +onLogin()
+  +render()
+}
+
+class AdminDashboard {
+  +admin: Object
+  +page: String
+  +collapsed: Boolean
+  +mobileOpen: Boolean
+  +logout()
+  +render()
+}
+
+class Dashboard {
+  +stats: Object
+  +recent: Array
+  +upcoming: Array
+  +onNav()
+  +render()
+}
+
+class SidebarContent {
+  +active: String
+  +collapsed: Boolean
+  +admin: Object
+  +render()
+}
+
+class Students {
+  +search: String
+  +modal: Object
+  +form: Object
+  +render()
+}
+
+class Staff {
+  +search: String
+  +modal: Object
+  +form: Object
+  +render()
+}
+
+class EventsAdmin {
+  +search: String
+  +modal: Object
+  +form: Object
+  +render()
+}
+
+class BlogAdmin {
+  +search: String
+  +modal: Object
+  +form: Object
+  +render()
+}
+
+class Syllabus {
+  +search: String
+  +modal: Object
+  +form: Object
+  +render()
+}
+
+class HeroSlides {
+  +modal: Object
+  +form: Object
+  +render()
+}
+
+class ServicesAdmin {
+  +modal: Object
+  +form: Object
+  +render()
+}
+
+class GalleryAdmin {
+  +modal: Object
+  +form: Object
+  +render()
+}
+
+class TestimonialsAdmin {
+  +modal: Object
+  +form: Object
+  +render()
+}
+
+class MessagesAdmin {
+  +modal: Object
+  +form: Object
+  +render()
+}
+
+class CoursesAdmin {
+  +modal: Object
+  +form: Object
+  +render()
+}
+
+' ─── SHARED ADMIN UI ─────────────────────────────────
+class Modal {
+  +title: String
+  +wide: Boolean
+  +onClose()
+  +render()
+}
+
+class Confirm {
+  +name: String
+  +onConfirm()
+  +onCancel()
+  +render()
+}
+
+class TableSection {
+  +title: String
+  +count: Number
+  +searchVal: String
+  +onAdd()
+  +onSearch()
+  +onExport()
+  +render()
+}
+
+class PhotoUpload {
+  +url: String
+  +folder: String
+  +uploading: Boolean
+  +onChange()
+  +render()
+}
+
+class StatCard {
+  +label: String
+  +value: Number
+  +accent: String
+  +render()
+}
+
+class Badge {
+  +label: String
+  +render()
+}
+
+' ─── EXTERNAL SERVICES ───────────────────────────────
+class SupabaseClient {
+  +url: String
+  +key: String
+  +from(table)
+  +storage()
+}
+
+class APIServer {
+  +POST /api/admission()
+  +POST /api/contact()
+}
+
+' ─── RELATIONSHIPS ───────────────────────────────────
+
+' Frontend App
+App --> Navbar
+App --> HeroSlider
+App --> About
+App --> Messages
+App --> Services
+App --> Blog
+App --> Events
+App --> Courses
+App --> Gallery
+App --> Testimonials
+App --> SyllabusPage
+App --> MapSection
+App --> Footer
+App --> FloatingButtons
+App --> AdmissionModal
+
+Navbar --> NavItem : renders list of
+AdmissionModal --> ModalShell : uses
+Events --> EventCard : renders
+Navbar ..> useBreakpoint : uses
+HeroSlider ..> useBreakpoint : uses
+Footer ..> useBreakpoint : uses
+
+' Data fetching
+HeroSlider ..> SupabaseClient : fetches hero_slides
+Messages ..> SupabaseClient : fetches messages
+Services ..> SupabaseClient : fetches services
+Blog ..> SupabaseClient : fetches blogs
+Events ..> SupabaseClient : fetches events
+Courses ..> SupabaseClient : fetches courses
+Gallery ..> SupabaseClient : fetches gallery
+Testimonials ..> SupabaseClient : fetches testimonials
+AdmissionModal ..> APIServer : POST /api/admission
+Footer ..> APIServer : POST /api/contact
+
+' Admin Panel
+AdminDashboard --> LoginPage : shows if not authed
+AdminDashboard --> SidebarContent
+AdminDashboard --> Dashboard
+AdminDashboard --> Students
+AdminDashboard --> Staff
+AdminDashboard --> EventsAdmin
+AdminDashboard --> BlogAdmin
+AdminDashboard --> Syllabus
+AdminDashboard --> HeroSlides
+AdminDashboard --> ServicesAdmin
+AdminDashboard --> GalleryAdmin
+AdminDashboard --> TestimonialsAdmin
+AdminDashboard --> MessagesAdmin
+AdminDashboard --> CoursesAdmin
+
+Dashboard --> StatCard : renders
+Dashboard ..> SupabaseClient : fetches counts
+
+Students ..> useCRUD : uses
+Staff ..> useCRUD : uses
+EventsAdmin ..> useCRUD : uses
+BlogAdmin ..> useCRUD : uses
+Syllabus ..> useCRUD : uses
+HeroSlides ..> useCRUD : uses
+ServicesAdmin ..> useCRUD : uses
+GalleryAdmin ..> useCRUD : uses
+TestimonialsAdmin ..> useCRUD : uses
+MessagesAdmin ..> useCRUD : uses
+CoursesAdmin ..> useCRUD : uses
+
+useCRUD ..> SupabaseClient : queries
+
+Students --> TableSection : uses
+Students --> Modal : uses
+Students --> Confirm : uses
+Staff --> TableSection : uses
+Staff --> PhotoUpload : uses
+BlogAdmin --> PhotoUpload : uses
+GalleryAdmin --> PhotoUpload : uses
+
+AdminDashboard ..> useBreakpoint : uses
+
+@enduml

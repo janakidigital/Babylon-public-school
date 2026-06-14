@@ -117,6 +117,57 @@ app.post("/api/contact", async (req, res) => {
   }
 });
 
+// ── EXCEL DOWNLOAD ────────────────────────────────────────────────────────────
+const ExcelJS = require("exceljs");
+
+app.get("/api/admissions/export", async (req, res) => {
+  try {
+    const { data, error } = await sb
+      .from("admissions")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) throw error;
+
+    const workbook = new ExcelJS.Workbook();
+    const sheet = workbook.addWorksheet("Admissions");
+
+    sheet.columns = [
+      { header: "Student Name",      key: "student_name",      width: 20 },
+      { header: "Date of Birth",     key: "dob",               width: 15 },
+      { header: "Gender",            key: "gender",            width: 10 },
+      { header: "Grade Applied",     key: "grade_applied",     width: 15 },
+      { header: "Previous School",   key: "previous_school",   width: 20 },
+      { header: "Father Name",       key: "father_name",       width: 20 },
+      { header: "Mother Name",       key: "mother_name",       width: 20 },
+      { header: "Phone",             key: "guardian_phone",    width: 15 },
+      { header: "Email",             key: "guardian_email",    width: 25 },
+      { header: "Address",           key: "address",           width: 20 },
+      { header: "Emergency Contact", key: "emergency_contact", width: 20 },
+      { header: "Heard From",        key: "heard_from",        width: 15 },
+      { header: "Message",           key: "message",           width: 30 },
+      { header: "Submitted At",      key: "created_at",        width: 20 },
+    ];
+
+    // Style header row
+    sheet.getRow(1).eachCell(cell => {
+      cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF1A2744" } };
+      cell.font = { color: { argb: "FFFFFFFF" }, bold: true };
+      cell.alignment = { vertical: "middle", horizontal: "center" };
+    });
+
+    data.forEach(row => sheet.addRow(row));
+
+    res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+    res.setHeader("Content-Disposition", "attachment; filename=admissions.xlsx");
+
+    await workbook.xlsx.write(res);
+    res.end();
+  } catch (err) {
+    console.error("Export error:", err);
+    res.status(500).json({ success: false, message: "Export failed." });
+  }
+});
 // ── EMAIL TEMPLATES ───────────────────────────────────────────────────────────
 function row(label, value) {
   if (!value) return "";

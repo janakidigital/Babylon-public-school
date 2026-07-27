@@ -1326,24 +1326,25 @@ function AdmissionModal({ onClose }) {
 }
 
 function ModalShell({ children, onClose }) {
+  const { isMobile } = useBreakpoint();
   return (
-    <div style={{ position: "fixed", inset: 0, zIndex: 5000, background: "rgba(26,39,68,.65)", backdropFilter: "blur(4px)", overflowY: "auto", padding: "16px", display: "flex", alignItems: "flex-start", justifyContent: "center" }}>
-      <div style={{ width: "100%", maxWidth: 780, background: "white", borderRadius: 18, overflow: "hidden", boxShadow: "0 24px 60px rgba(0,0,0,.25)", marginTop: 8 }}>
-        <div style={{ background: C.navy, padding: "16px 20px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <img src={`${WMS}/ws-profile/1673510420231_2830d6ec-d646-4eb1-8df2-75fbaff60958.png`} alt="BNS" style={{ height: 36, filter: "brightness(0) invert(1) opacity(.9)" }} />
+    <div style={{ position: "fixed", inset: 0, zIndex: 5000, background: "rgba(26,39,68,.65)", backdropFilter: "blur(4px)", overflowY: "auto", padding: isMobile ? "0" : "16px", display: "flex", alignItems: isMobile ? "flex-end" : "flex-start", justifyContent: "center" }}>
+      <div style={{ width: "100%", maxWidth: 780, background: "white", borderRadius: isMobile ? "18px 18px 0 0" : 18, overflow: "hidden", boxShadow: "0 24px 60px rgba(0,0,0,.25)", marginTop: isMobile ? 0 : 8 }}>
+        <div style={{ background: C.navy, padding: "14px 16px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <img src={`${WMS}/ws-profile/1673510420231_2830d6ec-d646-4eb1-8df2-75fbaff60958.png`} alt="BNS" style={{ height: isMobile ? 28 : 36, filter: "brightness(0) invert(1) opacity(.9)" }} />
             <div>
-              <div style={{ color: "white", fontWeight: 700, fontSize: 15 }}>Online Admission Form</div>
-              <div style={{ color: "rgba(255,255,255,.55)", fontSize: 11 }}>Babylon National School — 2081/82</div>
+              <div style={{ color: "white", fontWeight: 700, fontSize: isMobile ? 13 : 15 }}>Online Admission Form</div>
+              <div style={{ color: "rgba(255,255,255,.55)", fontSize: isMobile ? 10 : 11 }}>Babylon National School — 2081/82</div>
             </div>
           </div>
-          <button onClick={onClose} style={{ background: "rgba(255,255,255,.12)", border: "none", color: "white", width: 34, height: 34, borderRadius: "50%", fontSize: 20, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>×</button>
+          <button onClick={onClose} style={{ background: "rgba(255,255,255,.12)", border: "none", color: "white", width: 32, height: 32, borderRadius: "50%", fontSize: 20, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>×</button>
         </div>
         {children}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, padding: "10px 20px 14px", borderTop: `1px solid ${C.border}`, background: "#fafbfc" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, padding: "8px 20px 12px", borderTop: `1px solid ${C.border}`, background: "#fafbfc" }}>
           <span style={{ fontSize: 11, color: "#aaa", letterSpacing: 0.5 }}>Powered by</span>
           <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
-            <svg width="28" height="28" viewBox="0 0 100 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="24" height="24" viewBox="0 0 100 90" fill="none" xmlns="http://www.w3.org/2000/svg">
               <polyline points="5,45 50,5 95,45" stroke="url(#houseGrad)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
               <polyline points="15,38 15,82 85,82 85,38" stroke="url(#houseGrad)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
               <rect x="62" y="8" width="10" height="16" rx="1" fill="url(#houseGrad)"/>
@@ -1358,8 +1359,8 @@ function ModalShell({ children, onClose }) {
               </defs>
             </svg>
             <div style={{ lineHeight: 1.2 }}>
-              <div style={{ fontSize: 13, fontWeight: 800, color: "#1a3a8f", letterSpacing: 0.5, fontFamily: "sans-serif" }}>JANAKI</div>
-              <div style={{ fontSize: 8.5, fontWeight: 600, color: "#444", letterSpacing: 1.5, textTransform: "uppercase" }}>Digital Solutions Pvt. Ltd.</div>
+              <div style={{ fontSize: 12, fontWeight: 800, color: "#1a3a8f", letterSpacing: 0.5 }}>JANAKI</div>
+              <div style={{ fontSize: 8, fontWeight: 600, color: "#444", letterSpacing: 1.5, textTransform: "uppercase" }}>Digital Solutions Pvt. Ltd.</div>
             </div>
           </div>
         </div>

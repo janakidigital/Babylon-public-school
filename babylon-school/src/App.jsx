@@ -1168,16 +1168,21 @@ function SyllabusPage() {
 // ─── ADMISSION MODAL ──────────────────────────────────────────────────────────
 function AdmissionModal({ onClose }) {
   const [step, setStep] = useState(1);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const [form, setForm] = useState({
     studentName: "", dob: "", gender: "", gradeApplied: "", previousSchool: "",
     fatherName: "", motherName: "", guardianPhone: "", guardianEmail: "",
     address: "", emergencyContact: "", hasDocuments: false,
     message: "", heardFrom: "",
   });
-  const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-const [submitError, setSubmitError] = useState("");
   const { isMobile } = useBreakpoint();
+
+  // ADD THIS AFTER ALL useState lines
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/api/health`).catch(() => {});
+  }, []);
 
   const upd = (k, v) => setForm(f => ({ ...f, [k]: v }));
 
@@ -1306,7 +1311,6 @@ const [submitError, setSubmitError] = useState("");
       const data = await res.json();
       if (data.success) setSubmitted(true);
       else setSubmitError(data.message || "Failed. Try again.");
-    } catch {
       setSubmitError("Cannot connect to server.");
     } finally {
       setSubmitting(false);

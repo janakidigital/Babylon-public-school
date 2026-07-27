@@ -8,6 +8,9 @@ const app = express();
 app.use(cors({ origin: process.env.ALLOWED_ORIGIN || "*" }));
 app.use(express.json());
 
+app.get("/", (req, res) => res.json({ status: "ok" }));
+app.get("/api/health", (req, res) => res.json({ status: "ok" }));
+
 // ── Supabase ──────────────────────────────────────────────────────────────────
 const sb = createClient(
   process.env.SUPABASE_URL,
